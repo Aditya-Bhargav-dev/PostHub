@@ -1,0 +1,38 @@
+body
+{
+    background-color: rgb(214, 195, 195);
+}
+
+.span
+{
+    font-size: 15px;
+}
+
+p{
+    color: rgb(79, 182, 223);
+}
+
+.card
+{
+    max-height: 200px;
+    min-height: 200px;
+}
+
+
+
+.shadow-none {
+    box-shadow: none
+}
+
+
+.cursor:hover {
+    color: blue
+}
+
+.cursor {
+    cursor: pointer
+}
+
+.textarea {
+    resize: none
+}
