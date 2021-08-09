@@ -10,6 +10,8 @@ async function getPosts(id = "") {
       recentPosts(data);
     }
     else {
+      localStorage.setItem("comments", JSON.stringify(data.comments));
+      localStorage.setItem("id", data.id);
       showPost(data);
     }
   }
@@ -26,9 +28,10 @@ function recentPosts(posts) {
   posts.forEach(element => {
     let post =
       `
-      <div class="col-sm-4 col-md-4 col-lg-4">
+      <div class="col-sm-4 col-md-4 col-lg-4 text-center">
           <div class="card">
               <div class="card-body">
+              <img src="https://lh3.googleusercontent.com/8jo7jrKIA1DSGQOjQscnkF7OjyTdszyJ0ep_ARe9eZ-gGOCD1_NXTSTz1raF4G1cE9t02B0=s85" style="width:100px;height:50px;"></img><br><br>
                 <h4 class="card-title">${element.title}</h4>
                 <p class="card-text">${element.post.slice(0, 50)}</p>
                 <a href="javascript:getPosts('${element.id}')" class="card-link">Continue reading</a>
@@ -69,11 +72,12 @@ async function createPost() {
 
 function showPost(post) {
   document.getElementById("show").style.display = "none";
-  let userpost = document.getElementById("userpost");
-  document.getElementById("name").innerHTML += post.name;
+  let readersComments = document.getElementById("comments");
+  document.getElementById("authorname").innerHTML = "Welcome again," + post.name;
   document.getElementById("posttitle").innerHTML = post.title;
   document.getElementById("posttext").innerHTML = post.post;
   let row = "";
+  readersComments.innerHTML = "";
   post.comments.forEach(comment => {
 
     row =
@@ -81,7 +85,7 @@ function showPost(post) {
     <hr class="my-0" style="background-color: cornsilk;"/>
     <br>
     `
-    userpost.innerHTML += row;
+    readersComments.innerHTML += row;
   });
   userpost.style.display = "block";
 
@@ -117,10 +121,13 @@ function like() {
 
 async function postComment() {
   try {
-    let comment = document.getElementById("commenttext").value;
-    let response = await fetch(url + 1, {
+    let comment = document.getElementById("commenttext");
+    let comments = JSON.parse(localStorage.getItem("comments"));
+    comments.push(comment.value);
+    console.log(comments)
+    let response = await fetch(url + localStorage.getItem("id"), {
       method: "PUT",
-      body: JSON.stringify({ comment }),
+      body: JSON.stringify({ comments }),
       headers: {
         "Content-Type": "application/json"
       }
@@ -128,10 +135,22 @@ async function postComment() {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
+    let data = await response.json();
+    comment.innerHTML = "";
+    showPost(data);
   }
   catch (error) {
     console.log(error);
   }
   closeComment()
 
+}
+
+function home() {
+  let show = document.getElementById("show");
+  let post = document.getElementById("userpost");
+  if (show.style.display === "none") {
+    show.style.display = "block";
+    post.style.display = "none";
+  }
 }
