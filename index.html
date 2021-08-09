@@ -14,13 +14,25 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="query.css">
 </head>
 
 <body>
+  <!-- Navigation bar-->
+  <nav class="navbar navbar-dark navbar-expand-sm bg-dark fixed-top">
+    <div class="container">
+      <a href="javascript:home()" class="navbar-brand">
+        <i class="fas fa-home"></i>
+        Posts Hub
+      </a>
+    </div>
+  </nav>
+  <br><br><br>
   <div id="show" style="display:block;">
     <div class="container text-center">
-      <h2>Posts Bay</h2>
+      <h1>Posts Hub</h1>
       <p>Create and maintain your Posts</p>
 
       <!-- Button to Open the Modal -->
@@ -74,14 +86,14 @@
     </div><br><br>
     <div class="container">
       <p> Recent Posts</p>
-      <div class="row" id="recentPost">
+      <div class="row text-center" id="recentPost">
       </div>
     </div>
   </div>
 
   <div class="container" id="userpost" style="display: none;">
     <br>
-    <h1 class="fw-bold mb-1" id="name">Welcome again, </h1>
+    <h2 class="fw-bold mb-1" id="authorname"> </h2>
     <div>
       <h4 id="posttitle"></h4>
       <p id="posttext"></p>
@@ -93,7 +105,10 @@
               class="ml-1">Comment</span></div>
         </div>
       </div>
-      <hr class="my-0" style="background-color: cornsilk;" />
+    </div>
+    <br>
+    <h2>Readers Comments</h2>
+    <div id="comments">
     </div>
     <div class="p-2" id="write" style="display: none;">
       <div class="d-flex flex-row align-items-start">
